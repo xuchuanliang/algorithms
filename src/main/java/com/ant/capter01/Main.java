@@ -1,4 +1,4 @@
-package com.ant.capter;
+package com.ant.capter01;
 
 public class Main {
     public static void main(String[] args){
