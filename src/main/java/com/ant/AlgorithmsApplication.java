@@ -1,4 +1,4 @@
-package com.ant.algorithms;
+package com.ant;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
