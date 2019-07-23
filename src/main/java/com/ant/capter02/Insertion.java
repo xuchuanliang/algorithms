@@ -19,9 +19,14 @@ public class Insertion extends Example{
     }
 
     public static void main(String[] args){
-        Integer[] data = Example.getData(10000);
+        //14054633823
+        //10856091112
+        //14080545123
+        Integer[] data = Example.getData(100000);
         Insertion insertion = new Insertion();
+        long t = System.nanoTime();
         insertion.sort(data);
+        System.out.println(System.nanoTime()-t);
         insertion.show(data);
     }
 }

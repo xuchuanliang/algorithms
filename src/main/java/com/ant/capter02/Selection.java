@@ -22,9 +22,12 @@ public class Selection extends Example{
     }
 
     public static void main(String[] args){
+        //104638482
         Selection selection = new Selection();
-        Integer[] data = Example.getData(10000);
+        Integer[] data = Example.getData(100000);
+        long t = System.nanoTime();
         selection.sort(data);
+        System.out.println(System.nanoTime()-t);
         Arrays.stream(data).forEach(a->System.out.print(a+","));
     }
 }
