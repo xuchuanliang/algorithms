@@ -34,12 +34,4 @@ public class T1 {
         }
         return true;
     }
-
-    public static int cutRope(int number){
-        //只要绳子长度<=4，那么分段最大乘积就是本身
-        if(number<=4){
-            return number;
-        }
-
-    }
 }

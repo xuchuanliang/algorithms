@@ -1,12 +1,11 @@
-package com.diagrammatize.capter01;
+package com.ant.capter01;
 
 import java.util.Random;
 
 /**
- * 二分查找法：给定有序数组以及需要查找的值，找到该值在数组中的位置，如果没有则返回null
+ * 查找
  */
-public class BinarySearch {
-
+public class Search {
     public static void main(String[] args) {
         int length = 90000000;
         int[] arr = new int[length];
@@ -28,19 +27,23 @@ public class BinarySearch {
      * @return
      */
     public static int binarySearch(int[] arr, int val) {
-        int low = 0;
-        int high = arr.length - 1;
-        while (low <= high) {
-            int middle = (low + high) / 2;
-            int guss = arr[middle];
-            if (guss == val) {
+        int start = 0;
+        int end = arr.length-1;
+        while (start < end){
+            int middle = (start+end)/2;
+            int middleVal = arr[middle];
+            if(middleVal == val){
+                //如果刚好查到
                 return middle;
-            } else if (guss < val) {
-                low = middle;
-            } else {
-                high = middle;
+            }else if(middleVal > val){
+                //如果中间值大于val，则在左边，则二分查询start-->middle中间的数组
+                end = middle;
+            }else {
+                //如果中间值小于val，则在右边，则二分查找middle-->end中间的数组
+                start = middle;
             }
         }
+        //如果start >= end还未查询到，则未查询到
         return -1;
     }
 
