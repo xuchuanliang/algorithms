@@ -20,7 +20,7 @@ public abstract class Example {
      * @return
      */
     protected boolean less(Comparable v,Comparable w){
-        return v.compareTo(w)<0;
+        return v.compareTo(w) < 0;
     }
 
     /**
