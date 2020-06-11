@@ -3,16 +3,16 @@ package com.ant;
 import java.util.Random;
 
 public final class Util {
-    public static int[] getArr(int size){
-        int[] result = new int[size];
+    public static Integer[] getArr(int size){
+        Integer[] result = new Integer[size];
         Random random = new Random();
         for(int i =0;i<size;i++){
-            result[i] = random.nextInt();
+            result[i] = random.nextInt(100);
         }
         return result;
     }
 
-    public int[] getArr(){
+    public Integer[] getArr(){
         return getArr(10);
     }
 
