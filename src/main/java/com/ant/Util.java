@@ -7,7 +7,7 @@ public final class Util {
         Integer[] result = new Integer[size];
         Random random = new Random();
         for(int i =0;i<size;i++){
-            result[i] = random.nextInt(100);
+            result[i] = random.nextInt(size);
         }
         return result;
     }

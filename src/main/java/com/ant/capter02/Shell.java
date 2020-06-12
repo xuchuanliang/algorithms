@@ -1,5 +1,6 @@
 package com.ant.capter02;
 
+import com.ant.StopWatch;
 import com.ant.Util;
 
 import java.util.Arrays;
@@ -11,6 +12,7 @@ public class Shell extends Example{
 
     /**
      * 前提：数组名称为arr
+     * 希尔排序是建立在插入排序的基础上，放大有序数组的范围，插入排序是每次和相邻的元素比较，希尔排序可能是以h为跨度进行比较，然后逐渐缩小h，直到h变为1，整个数组也从无序到逐渐有序到完全有序
      * 希尔排序的基本思路与插入排序类似，
      * 不同点在于，
      * 插入排序的基本思想：将arr分为左侧和右侧两个数组a和b，其中a为有序数组，最初只有第一个元素，b为无序数组；
@@ -28,12 +30,19 @@ public class Shell extends Example{
      */
     @Override
     public void sort(Comparable[] a) {
-        for(int h = a.length/2; h>=0;h = h/2){
-            for(int i = a.length-1; i>=h; i--){
-                if(less(a[i],a[i-h])){
-                    exch(a,i,i-h);
+        int h = 1;
+        while (h<a.length/3){
+            h = 3*h+1;
+        }
+        while ( h>0 ){
+            for(int i=h;i<a.length;i++){
+                for(int j=i; j>=h; j-=h){
+                    if(less(a[j],a[j-h])){
+                        exch(a,j,j-h);
+                    }
                 }
             }
+            h = h/3;
         }
     }
 
@@ -41,9 +50,29 @@ public class Shell extends Example{
 
 
     public static void main(String[] args){
-        Integer[] arr = Util.getArr(30);
+        Integer[] arr = Util.getArr(50000);
+        Integer[] a1 = Arrays.copyOf(arr,arr.length);
+        Integer[] a2 = Arrays.copyOf(arr,arr.length);
+        Integer[] a3 = Arrays.copyOf(arr,arr.length);
+        Selection selection = new Selection();
+        Insertion insertion = new Insertion();
         Shell shell = new Shell();
-        shell.sort(arr);
-        shell.show(arr);
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        selection.sort(a1);
+        stopWatch.stopAndPrint();
+        stopWatch.start();
+        insertion.sort(a2);
+        stopWatch.stopAndPrint();
+        stopWatch.start();
+        shell.sort(a3);
+        stopWatch.stopAndPrint();
+        selection.show(a1);
+        System.out.println("");
+        selection.show(a2);
+        System.out.println("");
+        selection.show(a3);
+        System.out.println("");
+
     }
 }

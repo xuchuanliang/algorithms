@@ -25,7 +25,7 @@ public class Selection extends Example{
     @Override
     public void sort(Comparable[] a){
         for(int i=0;i<a.length;i++){
-            for(int j=i+1;j<a.length;j--){
+            for(int j=i+1;j<a.length;j++){
                 //如果i位置的元素大于j的元素，那么就交换位置，直到i位置的元素是最小的
                 //然后循环向右推动
                 if(less(a[j],a[i])){
