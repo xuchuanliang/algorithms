@@ -48,4 +48,26 @@ public final class Util {
             System.out.println(o);
         }
     }
+
+    /**
+     * 断言是否有序
+     * @param arr
+     */
+    public static void assertSort(int[] arr){
+        boolean flag = true;
+        int errIndex = 0;
+        for(int i=0;i<arr.length-1;i++){
+            if(arr[i] > arr[i+1]){
+                flag = false;
+                errIndex = i;
+                break;
+            }
+        }
+        if(flag){
+            System.out.println("元素有序，元素是：");
+        }else{
+            System.err.println("元素无序，位置是："+errIndex+"；元素 是：");
+            print(arr);
+        }
+    }
 }
