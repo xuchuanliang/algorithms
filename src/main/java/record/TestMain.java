@@ -2,7 +2,11 @@ package record;
 
 import record.book.InsertSort;
 import record.book.SelectorSort;
+import record.book.ShellSort;
+import record.book.StopWatch;
 import record.niuke.*;
+
+import java.util.Arrays;
 
 public class TestMain {
     public static void main(String[] args) {
@@ -11,7 +15,13 @@ public class TestMain {
 //        testC3();
 //        testC4();
 //        testSelectSort();
-        testInsertSort();
+//        testInsertSort();
+//        testShellSort();
+
+
+
+
+        compareSortTime();
     }
 
     public static void testC1() {
@@ -53,8 +63,47 @@ public class TestMain {
     public static void testInsertSort() {
         int[] arr = U.getArr(100);
         U.print(arr);
-        InsertSort.sort_book(arr);
+        InsertSort.sort_simulate(arr);
         U.print(arr);
         U.assertSort(arr);
     }
+
+    public static void testShellSort(){
+        int[] arr = U.getArr(100);
+        U.print(arr);
+        ShellSort.sort(arr);
+        U.assertSort(arr);
+        U.print(arr);
+    }
+
+    /**
+     * 30W数据测试：
+     * 选择排序时间35194
+     * 插入排序时间12777
+     * 希尔排序时间：43448
+     */
+    public static void compareSortTime(){
+        int[] arr = U.getArr(100000*3);
+        int[] c1 = Arrays.copyOf(arr,arr.length);
+        int[] c2 = Arrays.copyOf(arr,arr.length);
+        int[] c3 = Arrays.copyOf(arr,arr.length);
+
+        StopWatch.start();
+        InsertSort.sort_simulate(c1);
+        StopWatch.stopAndPrint(InsertSort.class.getName());
+
+        StopWatch.start();
+        SelectorSort.sort(c2);
+        StopWatch.stopAndPrint(SelectorSort.class.getName());
+
+        StopWatch.start();
+        ShellSort.sort(c3);
+        StopWatch.stopAndPrint(ShellSort.class.getName());
+
+        U.assertSort(c1);
+        U.assertSort(c2);
+        U.assertSort(c3);
+    }
+
+
 }

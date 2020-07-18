@@ -19,7 +19,7 @@ import record.U;
  * 们会在学习高级排序算法时再次接触到插入
  * 排序
  */
-public class InsertSort {
+public class InsertSort{
 
     /**
      * 思路：从第二个开始逐步向后遍历，并且插入到前面的指定位置，将该位置的元素向后移动，
@@ -63,6 +63,16 @@ public class InsertSort {
             right--;
         }
         arr[index] = value;
+    }
+
+    public static void sort_simulate(int[] arr){
+        for(int i=1;i<arr.length;i++){
+            int j = i;
+            while (j>0 && arr[j] < arr[j-1]){
+                U.swap(arr,j,j-1);
+                j--;
+            }
+        }
     }
 
     /**
