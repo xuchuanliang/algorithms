@@ -17,11 +17,7 @@ public class TestMain {
 //        testSelectSort();
 //        testInsertSort();
 //        testShellSort();
-
-
-
-
-        compareSortTime();
+//        compareSortTime();
     }
 
     public static void testC1() {
