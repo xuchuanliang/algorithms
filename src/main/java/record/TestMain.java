@@ -1,9 +1,11 @@
 package record;
 
-import record.book.InsertSort;
-import record.book.SelectorSort;
-import record.book.ShellSort;
+import record.book.capter01.InsertSort;
+import record.book.capter01.SelectorSort;
+import record.book.capter01.ShellSort;
 import record.book.StopWatch;
+import record.book.capter02.Merge;
+import record.book.capter02.MyMerge;
 import record.niuke.*;
 
 import java.util.Arrays;
@@ -17,6 +19,9 @@ public class TestMain {
 //        testSelectSort();
 //        testInsertSort();
 //        testShellSort();
+//        testMerge();
+        testMyMerge();
+
 //        compareSortTime();
     }
 
@@ -72,6 +77,23 @@ public class TestMain {
         U.print(arr);
     }
 
+    public static void testMerge(){
+        int[] arr = U.getArr(10);
+        U.print(arr);
+        Merge.sort(arr);
+        U.assertSort(arr);
+        U.print(arr);
+    }
+
+    public static void testMyMerge(){
+//        int[] arr = U.getArr(10);
+        int[] arr = U.transfer("9,   5,   3,   1,   0,   9,   5,   4,   2,   2,");
+        U.print(arr);
+        MyMerge.sort(arr);
+        U.assertSort(arr);
+        U.print(arr);
+    }
+
     /**
      * 30W数据测试：
      * 选择排序时间35194
@@ -83,6 +105,7 @@ public class TestMain {
         int[] c1 = Arrays.copyOf(arr,arr.length);
         int[] c2 = Arrays.copyOf(arr,arr.length);
         int[] c3 = Arrays.copyOf(arr,arr.length);
+        int[] c4 = Arrays.copyOf(arr,arr.length);
 
         StopWatch.start();
         InsertSort.sort_simulate(c1);
@@ -96,9 +119,14 @@ public class TestMain {
         ShellSort.sort(c3);
         StopWatch.stopAndPrint(ShellSort.class.getName());
 
+        StopWatch.start();
+        Merge.sort(c4);
+        StopWatch.stopAndPrint(Merge.class.getName());
+
         U.assertSort(c1);
         U.assertSort(c2);
         U.assertSort(c3);
+        U.assertSort(c4);
     }
 
 
