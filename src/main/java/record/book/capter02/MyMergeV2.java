@@ -33,7 +33,10 @@ public class MyMergeV2 {
         int mid = (left+right)/2;
         sort(arr,left,mid);
         sort(arr,mid+1,right);
-        merge(arr,left,mid,right);
+        if(arr[mid]>arr[mid+1]){
+            //****优化：只有左侧数组最后一个元素大于右侧第一个元素，才认为需要进行合并操作，否则left-right数组本身就是有序，无需进行合并操作
+            merge(arr,left,mid,right);
+        }
     }
 
     /**

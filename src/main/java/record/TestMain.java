@@ -110,16 +110,16 @@ public class TestMain {
      */
     public static void compareSortTime() throws Exception {
         //30W数据排序
-        int[] arr = U.getArr(100000 * 3);
-        //选择排序 35587
+        int[] arr = U.getArr(10000000 * 3);
+//        //选择排序 35587
         CompletableFuture<Void> c1 = CompletableFuture.runAsync(() -> TestSortCompare.compareSelectorSort(arr));
-        //插入排序 12839
+//        //插入排序 12839
         CompletableFuture<Void> c2 = CompletableFuture.runAsync(() -> TestSortCompare.compareInsertSort(arr));
-        //希尔排序 48862
+//        //希尔排序 48862
         CompletableFuture<Void> c3 = CompletableFuture.runAsync(() -> TestSortCompare.compareShellSort(arr));
-        //归并排序 44
+//        //归并排序 44
         CompletableFuture<Void> c4 = CompletableFuture.runAsync(() -> TestSortCompare.compareMerge(arr));
-        //我自己的V1版本归并排序 78
+//        //我自己的V1版本归并排序 78
         CompletableFuture<Void> c5 = CompletableFuture.runAsync(() -> TestSortCompare.compareMyMerge(arr));
         //我自己的V2版本归并排序 41
         CompletableFuture<Void> c6 = CompletableFuture.runAsync(() -> TestSortCompare.compareMyMergeV2(arr));
