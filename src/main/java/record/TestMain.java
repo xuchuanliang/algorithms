@@ -1,17 +1,18 @@
 package record;
 
+import record.book.TestSortCompare;
 import record.book.capter01.InsertSort;
 import record.book.capter01.SelectorSort;
 import record.book.capter01.ShellSort;
-import record.book.StopWatch;
 import record.book.capter02.Merge;
 import record.book.capter02.MyMerge;
+import record.book.capter02.MyMergeV2;
 import record.niuke.*;
 
-import java.util.Arrays;
+import java.util.concurrent.CompletableFuture;
 
 public class TestMain {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 //        testC1();
 //        testC2();
 //        testC3();
@@ -20,9 +21,10 @@ public class TestMain {
 //        testInsertSort();
 //        testShellSort();
 //        testMerge();
-        testMyMerge();
+//        testMyMerge();
+//        testMyMergeV2();
 
-//        compareSortTime();
+        compareSortTime();
     }
 
     public static void testC1() {
@@ -69,7 +71,7 @@ public class TestMain {
         U.assertSort(arr);
     }
 
-    public static void testShellSort(){
+    public static void testShellSort() {
         int[] arr = U.getArr(100);
         U.print(arr);
         ShellSort.sort(arr);
@@ -77,7 +79,7 @@ public class TestMain {
         U.print(arr);
     }
 
-    public static void testMerge(){
+    public static void testMerge() {
         int[] arr = U.getArr(10);
         U.print(arr);
         Merge.sort(arr);
@@ -85,13 +87,19 @@ public class TestMain {
         U.print(arr);
     }
 
-    public static void testMyMerge(){
-//        int[] arr = U.getArr(10);
-        int[] arr = U.transfer("9,   5,   3,   1,   0,   9,   5,   4,   2,   2,");
+    public static void testMyMerge() {
+        int[] arr = U.getArr(1000);
         U.print(arr);
         MyMerge.sort(arr);
         U.assertSort(arr);
         U.print(arr);
+    }
+
+    public static void testMyMergeV2() {
+        int[] arr = U.getArr(1000);
+        U.print(arr);
+        MyMergeV2.sort(arr);
+        U.assertSort(arr);
     }
 
     /**
@@ -100,34 +108,27 @@ public class TestMain {
      * 插入排序时间12777
      * 希尔排序时间：43448
      */
-    public static void compareSortTime(){
-        int[] arr = U.getArr(100000*3);
-        int[] c1 = Arrays.copyOf(arr,arr.length);
-        int[] c2 = Arrays.copyOf(arr,arr.length);
-        int[] c3 = Arrays.copyOf(arr,arr.length);
-        int[] c4 = Arrays.copyOf(arr,arr.length);
+    public static void compareSortTime() throws Exception {
+        //30W数据排序
+        int[] arr = U.getArr(100000 * 3);
+        //选择排序 35587
+        CompletableFuture<Void> c1 = CompletableFuture.runAsync(() -> TestSortCompare.compareSelectorSort(arr));
+        //插入排序 12839
+        CompletableFuture<Void> c2 = CompletableFuture.runAsync(() -> TestSortCompare.compareInsertSort(arr));
+        //希尔排序 48862
+        CompletableFuture<Void> c3 = CompletableFuture.runAsync(() -> TestSortCompare.compareShellSort(arr));
+        //归并排序 44
+        CompletableFuture<Void> c4 = CompletableFuture.runAsync(() -> TestSortCompare.compareMerge(arr));
+        //我自己的V1版本归并排序 78
+        CompletableFuture<Void> c5 = CompletableFuture.runAsync(() -> TestSortCompare.compareMyMerge(arr));
+        //我自己的V2版本归并排序 41
+        CompletableFuture<Void> c6 = CompletableFuture.runAsync(() -> TestSortCompare.compareMyMergeV2(arr));
 
-        StopWatch.start();
-        InsertSort.sort_simulate(c1);
-        StopWatch.stopAndPrint(InsertSort.class.getName());
-
-        StopWatch.start();
-        SelectorSort.sort(c2);
-        StopWatch.stopAndPrint(SelectorSort.class.getName());
-
-        StopWatch.start();
-        ShellSort.sort(c3);
-        StopWatch.stopAndPrint(ShellSort.class.getName());
-
-        StopWatch.start();
-        Merge.sort(c4);
-        StopWatch.stopAndPrint(Merge.class.getName());
-
-        U.assertSort(c1);
-        U.assertSort(c2);
-        U.assertSort(c3);
-        U.assertSort(c4);
+        c1.get();
+        c2.get();
+        c3.get();
+        c4.get();
+        c5.get();
+        c6.get();
     }
-
-
 }

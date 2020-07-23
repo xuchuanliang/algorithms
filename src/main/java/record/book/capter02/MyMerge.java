@@ -6,55 +6,63 @@ package record.book.capter02;
  * 递归将数组分成两半，直到数组左边和右边都只有一个数，则直接将左右两个数合并称为一个有序数组即可
  */
 public class MyMerge {
-    //合并后的结果
-    private static int[] result;
-    //已经合并的数组索引位置
-    private static int index = 0;
 
+    /**
+     * 思路：采用分治递归的思想，将数组递归拆分两半，然后将左右两边的数组排完序后，再将两边数组合并成为一个新的有序数组
+     * 1.主函数
+     * 2.
+     */
     public static void sort(int[] arr){
-        result = new int[arr.length];
         sort(arr,0,arr.length-1);
     }
 
+    /**
+     * 将数组分成左右两半，左边是left-mid，右边是mid+1-right
+     * 递归将左边和右边的数组分别进行排序，然后将左右两边有序数组合并成为一个大的有序数组
+     * 分治递归的思想是：如果左边和右边都只有一个元素，那么就可以认为左边和右边都是有序数组，然后直接合并即可
+     * @param arr
+     * @param left
+     * @param right
+     */
     private static void sort(int[] arr,int left,int right){
-        //如果left>=right，则表示只剩下一个元素了，则return
-        //如果right大于left，例如left=1，right=2，那么继续将数组拆分，直到只有一个元素为止，
-        if(left >= right){
+        //如果元素的个数只有一个，那么认为是有序的
+        if(left == right){
             return;
         }
-        //例如3，4，那么中间元素索引是3，则拆分成[3]和[4]两个数组，这两个数组因为只有一个元素，默认是有序的，然后将[3]和[4]合并成为一个数组
-        //如果任意一边的元素个数都大于2，那么继续拆分，直到左右两表都是一个最终合并
-        int mid = left + (right-left)/2;
+        int mid = (left+right)/2;
+        //排序左半部分
         sort(arr,left,mid);
+        //排序右半部分
         sort(arr,mid+1,right);
+        //左边和右边有序了之后，将左右两边的数组进行合并
         merge(arr,left,mid,right);
     }
 
-
     private static void merge(int[] arr,int left,int mid,int right){
+        //定一个存储左右两边元素的临时数组
+        int[] temp = new int[right-left+1];
+        int temp_index = 0;
+        //将左边和右边的数组中的有序元素合并到临时数组中
         int temp_left = left;
         int temp_right = mid+1;
-        index = left;
-
-        for(int i=left;i<=mid;i++){
-            if(arr[temp_left] < arr[temp_right]){
-                result[index++] = arr[temp_left++];
+        //只要左侧和右侧数组都还有元素，那么就比较两个元素，并且将小的放在临时数组中
+        while (temp_left<=mid && temp_right<=right){
+            if(arr[temp_left]<arr[temp_right]){
+                temp[temp_index++] = arr[temp_left++];
             }else{
-                result[index++] = arr[temp_right++];
+                temp[temp_index++] = arr[temp_right++];
             }
         }
-
-        //如果左侧还有元素，则说明右侧的元素已经全部放入数组中，则顺序将左侧元素放在数组中即可
-        while (temp_left <= mid){
-            result[index++] = arr[temp_left++];
+        //上方循环完成后，则左侧或右侧数组有一个数组已经空了，则将另外一个非空的数组循环放入到临时数组中
+        while (temp_left<=mid){
+            temp[temp_index++] = arr[temp_left++];
         }
-        //如果右侧还有元素，则说明左侧元素已经全部放入数组中，则顺序将右侧元素放入数组中即可
         while (temp_right<=right){
-            result[index++] = arr[temp_right++];
+            temp[temp_index++] = arr[temp_right++];
         }
-        //将result中元素重新放回到原数组中
-        for(int i=left; i<=right; i++){
-            arr[i] = result[i];
+        //最终临时数组中是有序的数组，则顺序将临时数组中的元素放置在arr中的left到right的位置
+        for(int i=0;i<temp_index;i++){
+            arr[left+i] = temp[i];
         }
     }
 }
