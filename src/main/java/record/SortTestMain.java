@@ -1,28 +1,26 @@
 package record;
 
 import record.book.TestSortCompare;
-import record.book.capter01.InsertSort;
-import record.book.capter01.SelectorSort;
-import record.book.capter01.ShellSort;
-import record.book.capter02.Merge;
-import record.book.capter02.MyMerge;
-import record.book.capter02.MyMergeV2;
+import record.book.capter02.*;
 import record.niuke.*;
 
 import java.util.concurrent.CompletableFuture;
 
-public class TestMain {
+public class SortTestMain {
     public static void main(String[] args) throws Exception {
 //        testC1();
 //        testC2();
 //        testC3();
 //        testC4();
+//        testBubblingSort();
 //        testSelectSort();
 //        testInsertSort();
 //        testShellSort();
 //        testMerge();
 //        testMyMerge();
 //        testMyMergeV2();
+//        testMyFastSort();
+//        testFastSort();
 
         compareSortTime();
     }
@@ -53,6 +51,14 @@ public class TestMain {
     public static void testC4() {
         LinkNode linkNode = LinkNode.init(10);
         C4.printListFromTailToHead(linkNode);
+    }
+
+    public static void testBubblingSort(){
+        int[] arr = U.getArr(1000);
+        U.print(arr);
+        BubblingSort.sort(arr);
+        U.print(arr);
+        U.assertSort(arr);
     }
 
     public static void testSelectSort() {
@@ -102,6 +108,20 @@ public class TestMain {
         U.assertSort(arr);
     }
 
+    public static void testMyFastSort(){
+        int[] arr = U.getArr(10);
+        U.print(arr);
+        MyFastSort.sort(arr);
+        U.assertSort(arr);
+    }
+
+    public static void testFastSort(){
+        int[] arr = U.getArr(10);
+        U.print(arr);
+        FastSort.sort(arr);
+        U.assertSort(arr);
+    }
+
     /**
      * 30W数据测试：
      * 选择排序时间35194
@@ -110,19 +130,23 @@ public class TestMain {
      */
     public static void compareSortTime() throws Exception {
         //30W数据排序
-        int[] arr = U.getArr(10000000 * 3);
-//        //选择排序 35587
+        int[] arr = U.getArr(100000 * 3);
+        //选择排序 35587
         CompletableFuture<Void> c1 = CompletableFuture.runAsync(() -> TestSortCompare.compareSelectorSort(arr));
-//        //插入排序 12839
+        //插入排序 12839
         CompletableFuture<Void> c2 = CompletableFuture.runAsync(() -> TestSortCompare.compareInsertSort(arr));
-//        //希尔排序 48862
+        //希尔排序 48862
         CompletableFuture<Void> c3 = CompletableFuture.runAsync(() -> TestSortCompare.compareShellSort(arr));
-//        //归并排序 44
+        //归并排序 44
         CompletableFuture<Void> c4 = CompletableFuture.runAsync(() -> TestSortCompare.compareMerge(arr));
-//        //我自己的V1版本归并排序 78
+        //我自己的V1版本归并排序 78
         CompletableFuture<Void> c5 = CompletableFuture.runAsync(() -> TestSortCompare.compareMyMerge(arr));
         //我自己的V2版本归并排序 41
         CompletableFuture<Void> c6 = CompletableFuture.runAsync(() -> TestSortCompare.compareMyMergeV2(arr));
+        //我自己的快速排序
+        CompletableFuture<Void> c7 = CompletableFuture.runAsync(() -> TestSortCompare.compareMyFastSort(arr));
+        //书中的快速排序
+        CompletableFuture<Void> c8 = CompletableFuture.runAsync(() -> TestSortCompare.compareFastSort(arr));
 
         c1.get();
         c2.get();
@@ -130,5 +154,7 @@ public class TestMain {
         c4.get();
         c5.get();
         c6.get();
+        c7.get();
+        c8.get();
     }
 }

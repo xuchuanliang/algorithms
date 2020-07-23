@@ -1,4 +1,4 @@
-package record.book.capter01;
+package record.book.capter02;
 
 import record.U;
 
