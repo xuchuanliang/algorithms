@@ -1,4 +1,4 @@
-package record.book.capter02;
+package record.book.capter02.sort;
 
 /**
  * 归并排序，书中的示例

@@ -1,7 +1,7 @@
 package record;
 
 import record.book.TestSortCompare;
-import record.book.capter02.*;
+import record.book.capter02.sort.*;
 import record.niuke.*;
 
 import java.util.concurrent.CompletableFuture;

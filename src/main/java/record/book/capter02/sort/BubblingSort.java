@@ -1,4 +1,4 @@
-package record.book.capter02;
+package record.book.capter02.sort;
 
 import record.U;
 
