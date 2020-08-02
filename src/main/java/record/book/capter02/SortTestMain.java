@@ -1,6 +1,7 @@
-package record;
+package record.book.capter02;
 
-import record.book.TestSortCompare;
+import record.U;
+import record.book.capter02.TestSortCompare;
 import record.book.capter02.sort.*;
 import record.niuke.*;
 

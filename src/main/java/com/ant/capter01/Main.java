@@ -33,7 +33,7 @@ public class Main {
     public static void read()throws Exception{
         BufferedReader bufferedReader;
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("D:\\a.txt"));
-        File file = new File("D:\\code\\HikPWCJD\\src\\com\\hkbt\\pwc");
+        File file = new File("D:\\code\\idea_code\\HikMJYL\\HikMJYL\\src\\com\\hkbt\\mjyl");
         Queue<File> queue = new LinkedList<>();
         queue.offer(file);
         while (!queue.isEmpty()){
