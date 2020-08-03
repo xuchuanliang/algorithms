@@ -18,18 +18,18 @@ import java.util.Arrays;
  * @param <K>
  * @param <V>
  */
-public class BinarySearchST<K extends Comparable<K>, V> implements ST<K, V> {
+public class BinarySearchArrayST<K extends Comparable<K>, V> implements ST<K, V> {
 
     private K[] ks;
     private Object[] vs;
     private int size = 0;
     private static final int DEFAULT_CAPACITY = 10;
 
-    public BinarySearchST() {
+    public BinarySearchArrayST() {
         this(DEFAULT_CAPACITY);
     }
 
-    public BinarySearchST(int capacity) {
+    public BinarySearchArrayST(int capacity) {
         ks = (K[]) new Comparable[capacity];
         vs = new Object[capacity];
     }

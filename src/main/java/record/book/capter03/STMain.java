@@ -3,7 +3,6 @@ package record.book.capter03;
 import record.U;
 
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 符号/字典测试主类
@@ -11,8 +10,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class STMain {
 
     public static void main(String[] args) throws InterruptedException {
-        testSequentialSearchST();
-        testBinarySearchST();
+//        testSequentialSearchST();
+//        testBinarySearchArrayST();
+//        tesBinarySearchTree();
     }
 
 
@@ -31,15 +31,28 @@ public class STMain {
     }
 
     /**
-     * 测试使用数组实现的字典项
+     * 测试使用数组实现的基于二分查找的符号表
      */
-    public static void testBinarySearchST() {
-        ST<Integer, String> st = new BinarySearchST<>();
+    public static void testBinarySearchArrayST() {
+        ST<Integer, String> st = new BinarySearchArrayST<>();
         for (int i = 0; i < 100; i++) {
             Integer key = new Random().nextInt(2000);
             System.out.println(key);
             st.put(key, "value -->" + key);
         }
+        st.print();
+    }
+
+    /**
+     * 测试使用二叉树实现的符号表
+     */
+    public static void tesBinarySearchTree(){
+        BinarySearchTree<Integer,String> st = new BinarySearchTree<>();
+        for(int i=0;i<100;i++){
+            int rand = new Random().nextInt(1000);
+            st.put(rand,"value:"+rand);
+        }
+        //有序输出
         st.print();
     }
 }
