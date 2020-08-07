@@ -12,7 +12,8 @@ public class STMain {
     public static void main(String[] args) throws InterruptedException {
 //        testSequentialSearchST();
 //        testBinarySearchArrayST();
-//        tesBinarySearchTree();
+        tesBinarySearchTree();
+
     }
 
 
@@ -47,12 +48,14 @@ public class STMain {
      * 测试使用二叉树实现的符号表
      */
     public static void tesBinarySearchTree(){
-        BinarySearchTree<Integer,String> st = new BinarySearchTree<>();
+        BinarySearchTreeBook<Integer,String> st = new BinarySearchTreeBook<>();
         for(int i=0;i<100;i++){
             int rand = new Random().nextInt(1000);
             st.put(rand,"value:"+rand);
         }
-        //有序输出
-        st.print();
+        Iterable<Integer> iterator = st.iterator(200,600);
+        iterator.forEach(i->{
+            System.out.print(i+",");
+        });
     }
 }
