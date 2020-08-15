@@ -2,7 +2,7 @@ package record.book.capter02;
 
 import record.U;
 import record.book.StopWatch;
-import record.book.capter02.sort.*;
+import record.book.capter02.sort.v1.*;
 
 import java.util.Arrays;
 

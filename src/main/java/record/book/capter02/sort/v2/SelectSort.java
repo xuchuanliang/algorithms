@@ -1,4 +1,4 @@
-package record.book.capter02.sort;
+package record.book.capter02.sort.v2;
 
 import record.U;
 
@@ -18,21 +18,24 @@ import record.U;
  * 换次数和数组的大小是线性关系。我们将研究的其他任何算法都不具备这个特征（大部分的增长数
  * 量级都是线性对数或是平方级别）。
  */
-public class SelectorSort {
+public class SelectSort {
+
+    public static void main(String[] args) {
+        int[] arr = U.getArr(100);
+        sort(arr);
+        U.assertSort(arr);
+    }
 
     public static void sort(int[] arr){
-        if(null==arr)
-            throw new IllegalArgumentException("参数错误");
-        for(int i=0; i<arr.length; i++){
-            //找到i至最后一个元素中最小的元素的所在索引
-            int min = i;
-            for(int j=i+1;j<arr.length-1;j++){
-                if(arr[j] < arr[min]){
-                    min = j;
+        for(int i=0;i<arr.length;i++){
+            int minIndex = i;
+            for(int j=i+1;j<arr.length;j++){
+                if(arr[minIndex] > arr[j]){
+                    minIndex = j;
                 }
             }
-            //将最小的元素交换值i的位置
-            U.swap(arr,i,min);
+            //已经找到最小元素的索引是minIndex
+            U.swap(arr,i,minIndex);
         }
     }
 }
