@@ -1,6 +1,9 @@
 package record.book.capter03;
 
 import record.U;
+import record.book.capter03.quarter1.BinarySearchArrayST;
+import record.book.capter03.quarter1.SequentialSearchST;
+import record.book.capter03.quarter2.BinarySearchTreeBook;
 
 import java.util.Random;
 

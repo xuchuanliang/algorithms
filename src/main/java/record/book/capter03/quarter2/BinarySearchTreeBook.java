@@ -1,4 +1,4 @@
-package record.book.capter03;
+package record.book.capter03.quarter2;
 
 import record.U;
 
@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * 树中实现的二叉树
+ * 书中实现的二叉树
  * 对照{@link BinarySearchTree}
  */
 public class BinarySearchTreeBook<K extends Comparable<K>, V> {
@@ -31,6 +31,7 @@ public class BinarySearchTreeBook<K extends Comparable<K>, V> {
 
     /**
      * 获取指定k的value值
+     * 基本思想是，从根节点开始对比，如果比当前节点小，则向左查找，如果比当前节点大，则向右查找，知道找到元素或到了树的底部
      *
      * @param k
      * @return
@@ -65,6 +66,17 @@ public class BinarySearchTreeBook<K extends Comparable<K>, V> {
         root = put(root, k, v);
     }
 
+    /**
+     * 向根节点为node的树中插入元素
+     * 基本思想是：如果当前节点是k，则替换他的value并返回当前元素
+     * 否则如果k小于当前node的key则向左插入，并且更新node的left节点
+     * 如果k大于当前node的key则向右插入，并且更新node的right节点
+     * 注意：二叉树的插入思想是一层层向下，如果小则向左，大则向右，插到最下面，也就导致了二叉树极端情况下会退化成链表的原因
+     * @param node
+     * @param k
+     * @param v
+     * @return
+     */
     private Node put(Node node, K k, V v) {
         if (null == node) {
             return new Node(k, v, 1);
@@ -84,7 +96,7 @@ public class BinarySearchTreeBook<K extends Comparable<K>, V> {
 
     /**
      * 获取最小的k，也就是获取最左侧节点的key
-     *
+     *  基本思想是：递归向左查找，直到左边最后一个节点，该节点就是二叉树中最小的节点
      * @return
      */
     public K min() {
@@ -107,6 +119,7 @@ public class BinarySearchTreeBook<K extends Comparable<K>, V> {
 
     /**
      * 获取当前树中的最大元素
+     * 基本思想是：递归向右查找，直到右边最后一个节点，该节点就是二叉树中最大的节点
      * @return
      */
     public K max(){

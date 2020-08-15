@@ -477,6 +477,413 @@ public class FastSort {
     }
 }
 ```
+### 优先队列
+- 二叉堆的定义：数据结构二叉堆能够很好地实现优先队列的基本操作。在二叉堆的数组中，每个元素都要保证大于等于另两个特定位置的元素。
+相应地，这些位置的元素又至少要大于等于数组中的另两个元素，以此类推。如果我们将所有元素画成一棵二叉树，将每个较大元素和两个较小的
+元素用边连接就可以很容易看出这种结构。
+- 当一棵二叉树的每个结点都大于等于它的两个子结点时，它被称为堆有序。
+- 二叉堆表示法：如果我们用指针来表示堆有序的二叉树，那么每个元素都需要三个指针来找到它的上下结点（父结点和两个子结点各需要一个）。
+但，如果我们使用完全二叉树，表达就会变得特别方便。要画出这样一棵完全二叉树，可以先定下根结点，然后一层一层地由上向下、从左至右，
+在每个结点的下方连接两个更小的结点，直至将 N 个结点全部连接完毕。完全二叉树只用数组而不需要指针就可以表示。具体方法就是将二叉树的
+结点按照层级顺序放入数组中，根结点在位置 1，它的子结点在位置 2 和 3，而子结点的子结点则分别在位置 4、 5、 6 和 7，以此类推。
+- 二叉堆是一组能够用堆有序的完全二叉树排序的元素，并在数组中按照层级储存（不使用数组的第一个位置）。
+- 下文中我们将二叉堆简称为堆
+- 什么是优先队列：优先队列是一种数据结构，允许用户删除最大的元素和插入元素。使用栈或队列或数组实现优先队列在插入元素和删除最大元素
+这两个操作上都有可能需要线性的时间来完成，为了更快的操作优先队列，因此引入了堆。
+- 二叉堆的定义：在二叉堆中每个元素都要保证大于等于另外两个特定位置的元素。也可以理解成当一颗二叉树的每一个节点都大于等于他的两个
+子节点的情况下，他被称为堆有序。
+- 完全二叉树的特点：叶子节点只能出现在最下层和次下层，且最下层的叶子节点集中在树的左部。说人话就是，将数字从上到下，从左到右，
+从小到大进行一层一层排成树结构，最终就是一个完全二叉树。
+- 普通二叉堆每一个元素都额外需要三个指针来分别指向他的左子节点、右子节点、父节点。但是如果使用完全二叉树，那么就可以直接使用数组
+表示就行，也不需要指针了。注意此处的二叉树只保证从上到下是递增有序的，但是不保证从左到右是有序的。
+- 使用完全二叉树表示的二叉堆我们默认称之为堆，索引为k的元素，其父节点的索引为k/2，其子节点分别是2k和2k+1；为了方便计算，一般堆中
+的数组索引为0的元素不会使用，从1开始。
+- 堆的有序化：堆的操作会首先进行一些简单的改动，打破堆的状态，然后再遍历堆并按照要求将堆的状态恢复。我们称这个过程叫做堆的有序化。
+在有序化的过程中我们会遇到两种情况。当某个结点的优先级上升（或是在堆底加入一个新的元素）时，我们需要由下至上恢复堆的顺序。当某个
+结点的优先级下降（例如，将根结点替换为一个较小的元素）时，我们需要由上至下恢复堆的顺序。
+- 由下至上的堆有序化（上浮）：如果堆的有序状态因为某个结点变得比它的父结点更大而被打破， 那么我们就需要通过交换它和它的父结点来修复堆。
+交换后，这个结点比它的两个子结点都大（一个是曾经的父结点，另一个比它更小，因为它是曾经父结点的子结点），但这个结点仍然可能比它现在
+的父结点更大。我们可以一遍遍地用同样的办法恢复秩序，将这个结点不断向上移动直到我们遇到了一个更大的父结点。只要记住位置 k 的结点的父
+结点的位置是 k/2，这个过程实现起来很简单。 swim() 方法中的循环可以保证只有位置 k 上的结点大于它的父结点时堆的有序状态才会被打破。
+因此只要该结点不再大于它的父结点，堆的有序状态就恢复了。至于方法名，当一个结点太大的时候它需要浮（ swim）到堆的更高层。
+- 由上至下的堆有序化（下沉）:如果堆的有序状态因为某个结点变得比它的两个子结点或是其中之一更小了而被打破了， 那么我们可以通过将它
+和它的两个子结点中的较大者交换来恢复堆。交换可能会在子结点处继续打破堆的有序状态，因此我们需要不断地用相同的方式将其修复，将结点
+向下移动直到它的子结点都比它更小或是到达了堆的底部。由位置为 k 的结点的子结点位于 2k 和 2k+1 可以直接得到对应的代码。当一个结点
+太小的时候它需要沉（ sink）到堆的更低层。
+- 插入元素。我们将新元素加到数组末尾，增加堆的大小并让这个新元素上浮到合适的位置删除最大元素。我们从数组顶端删去最大的元素并将
+数组的最后一个元素放到顶端，减小堆的大小并让这个元素下沉到合适的位置。
+- 它对优先队列 API 的实现能够保证插入元素和删除最大元素这两个操作的用时和队列的大小仅成对数关系。
+- 优先队列由一个基于堆的完全二叉树表示，存储于数组 pq[1..N] 中， pq[0] 没有使用。在insert() 中，我们将 N 加一并把新元素添加在
+数组最后，然后用 swim() 恢复堆的秩序。在 delMax() 中，我们从 pq[1] 中得到需要返回的元素，然后将 pq[N] 移动到 pq[1]，
+
+## 第三章
+### 二叉树
+```java
+public class BinarySearchTreeBook<K extends Comparable<K>, V> {
+
+    private Node root;
+
+    /**
+     * 获取二叉树的节点个数
+     *
+     * @return
+     */
+    public int size() {
+        return size(root);
+    }
+
+    private int size(Node node) {
+        if (null == node) {
+            return 0;
+        }
+        return node.N;
+    }
+
+    /**
+     * 获取指定k的value值
+     *
+     * @param k
+     * @return
+     */
+    public V get(K k) {
+        return get(root, k);
+    }
+
+    private V get(Node node, K k) {
+        if (node == null) {
+            return null;
+        }
+        if (node.key.equals(k)) {
+            return node.value;
+        }
+        if (U.less(node.key, k)) {
+            //比当前节点大，向右查询
+            return get(node.right, k);
+        } else {
+            //否则比当前节点小，向左查询
+            return get(node.left, k);
+        }
+    }
+
+    /**
+     * 向二叉树中存入新的节点，如果存在相同的k，则替换v
+     *
+     * @param k
+     * @param v
+     */
+    public void put(K k, V v) {
+        root = put(root, k, v);
+    }
+
+    private Node put(Node node, K k, V v) {
+        if (null == node) {
+            return new Node(k, v, 1);
+        }
+        if (node.key.equals(k)) {
+            node.value = v;
+        } else if (U.less(node.key, k)) {
+            //k大于当前节点的key，放在右侧
+            node.right = put(node.right, k, v);
+        } else {
+            //k小于当前节点的key，放在左侧
+            node.left = put(node.left, k, v);
+        }
+        node.N = size(node.left) + size(node.right);
+        return node;
+    }
+
+    /**
+     * 获取最小的k，也就是获取最左侧节点的key
+     *
+     * @return
+     */
+    public K min() {
+        if (null == root) {
+            return null;
+        }
+        return min(root).key;
+    }
+
+    private Node min(Node node) {
+        if (null == node) {
+            return null;
+        }
+        if (null == node.left) {
+            return node;
+        } else {
+            return node.left;
+        }
+    }
+
+    /**
+     * 获取当前树中的最大元素
+     * @return
+     */
+    public K max(){
+        if(null==root){
+            return null;
+        }
+        return max(root).key;
+    }
+
+    private Node max(Node node){
+        if(node.right==null){
+            return node;
+        }else{
+            return max(node.right);
+        }
+    }
+
+    /**
+     * 获取小于等于k的最大元素
+     *
+     * @param k
+     * @return
+     */
+    public K floor(K k) {
+        Node node = floor(root, k);
+        if (null != node) {
+            return null;
+        }
+        return node.key;
+    }
+
+    private Node floor(Node node, K k) {
+        if (null == node) {
+            return null;
+        }
+        if (node.key.equals(k)) {
+            return node;
+        }
+        if (!U.less(node.key, k)) {
+            //k比node.key小，在左边，向左递归查找
+            return floor(node.left, k);
+        }
+        //如果在右边，向右递归查询是否有小于k的节点，如果没有则当前节点是小于k的最大节点
+        Node floor = floor(node.right, k);
+        if (null == floor) {
+            return node;
+        } else {
+            return floor;
+        }
+    }
+
+    /**
+     * 返回排名为k的节点
+     *
+     * @param k
+     * @return
+     */
+    public K select(int k) {
+        Node node = select(root, k);
+        return null != node ? node.key : null;
+    }
+
+    private Node select(Node node, int k) {
+        if (null == node) {
+            return null;
+        }
+        int t = size(node.left);
+        if (t == k) {
+            return node;
+        } else if (t > k) {
+            //在左边
+            return select(node.left, k);
+        } else {
+            //在右边
+            return select(node.right, k - t - 1);
+        }
+    }
+
+    /**
+     * 返回以x为根结点的子树中小于x.key的键的数量
+     *
+     * @param k
+     * @return
+     */
+    public int rank(K k) {
+        return rank(root, k);
+    }
+
+    private int rank(Node node, K k) {
+        if (node == null) {
+            return 0;
+        }
+        if (node.key.equals(k)) {
+            return size(node.left);
+        }
+        if (U.less(node.key, k)) {
+            //比当前节点大，则向右找再加上左子树的数量
+            return size(node) + rank(node.right, k);
+        } else {
+            //比当前节点小，则向左找
+            return rank(node.left, k);
+        }
+    }
+
+    /**
+     * 删除最小的元素
+     * 思路是：从左向下递归查询，直到某个节点的左子树为空，那么该节点就是最小的元素
+     * 如果该节点的右节点为空，那么就直接将他的父节点的left指向空即可
+     * 如果该节点的右节点非空，那个根据二叉树的添加规则说明他的右节点肯定小于他的父节点，否则就会在添加时被添加到他父节点的右边，所以直接将其父节点的left指向要删除节点的right
+     *
+     * @return
+     */
+    public void delMin() {
+        root = delMin(root);
+    }
+
+    private Node delMin(Node node) {
+        //如果left是空，那么直接返回该节点的右节点
+        if (node.left == null) {
+            return node.right;
+        }
+        //否则递归的向左查找
+        node.left = delMin(node.left);
+        node.N = size(node.left) + size(node.right) + 1;
+        return node;
+    }
+
+    /**
+     * 删除最大元素
+     * 思路是：逐步向右下查找，直到找到右节点为空的节点，那么认为该节点最大，则将该节点的父节点指向他的左节点，即没有元素指向他，完成删除最大元素
+     */
+    public void delMax() {
+        root = delMax(root);
+    }
+
+    private Node delMax(Node node) {
+        if (node.right == null) {
+            //如果右侧节点为空，则说明当前元素最大，将其父节点右侧指向他的左节点
+            return node.left;
+        }
+        node.right = delMin(node);
+        node.N = size(node.left) + size(node.right) + 1;
+        return node;
+    }
+
+    /**
+     * 删除指定元素，思路：
+     * 1.找到指定要删除的元素k
+     * 2.如果k无左子树，则直接return k的右子树
+     * 3.如果k有左子树，无右子树，则直接return k的左子树
+     * 4.如果k既有左子树，也有右子树，则删除并取出右子树中的最小节点min，将k节点父节点left指向min，将min的左子树指向k的左子树，将min的右子树指向k的右子树
+     * 备注：实际上如果要删除的节点有左子树或右子树，实际上就是把左子树中最大的或者右子树中最小的拿出来替换当前要删除元素的位置
+     *
+     * @param k
+     */
+    public void delete(K k) {
+        root = delete(root, k);
+    }
+
+    private Node delete(Node node, K k) {
+        if (node == null) {
+            return null;
+        }
+        if (node.key.equals(k)) {
+            //如果当前元素是要删除的元素
+            if(node.left==null){
+                //左边为空
+                return node.right;
+            }else if(node.right==null){
+                //左边不为空，但右边为空
+                return node.left;
+            }else{
+                //左边不为空，右边也不为空
+                //删除并获取右子树中最小的元素
+                Node rightMin = delMin(node.right);
+                //该元素左边指向要删除节点的左子树
+                rightMin.left = node.left;
+                //该元素右边指向要删除节点的右子树
+                rightMin.right = node.right;
+                return rightMin;
+            }
+        }
+        //当前元素不是要删除的元素，则根据大小继续向右或向左查找
+        if (U.less(node.key, k)) {
+            //如果k比当前节点的key大，则向右查找
+            return delete(node.right, k);
+        } else {
+            return delete(node.left, k);
+        }
+    }
+
+    /**
+     * 遍历二叉树：按照从小到大的方式遍历
+     */
+    public void printLeft(){
+        printLeft(root);
+    }
+
+    private void printLeft(Node node){
+        //如果左边有，那先输出左边
+        if(node.left!=null){
+            printLeft(node.left);
+        }
+        //遍历完左边后，打印当前节点
+        System.out.print(""+node.key+"--"+node.value+"\t");
+        //打印完中间后，打印右子树
+        if(null!=node.right){
+            printLeft(node.right);
+        }
+    }
+
+    /**
+     * 提供遍历方法
+     * @return
+     */
+    public Iterable<K> iterator(){
+        return iterator(min(),max());
+    }
+
+    /**
+     * 遍历指定范围的树
+     * @param min
+     * @param max
+     * @return
+     */
+    public Iterable<K> iterator(K min,K max){
+        Queue<K> queue = new LinkedList<>();
+        keys(root,min,max,queue);
+        return queue;
+    }
+
+    /**
+     * 将树中的所有在min和max范围内的节点key放在queue中
+     * @param node
+     * @param min
+     * @param max
+     * @param queue
+     */
+    private void keys(Node node,K min,K max,Queue<K> queue){
+        if(null==node){
+            return;
+        }
+        if(U.less(min,node.key) && U.less(node.key,max)){
+            queue.offer(node.key);
+        }
+        keys(node.left,min,max,queue);
+        keys(node.right,min,max,queue);
+    }
+
+    /**
+     * 二叉树的内部数据结构
+     */
+    private class Node {
+        private K key;
+        private V value;
+        private Node left, right;
+        private int N;
+
+        public Node(K key, V value, int n) {
+            this.key = key;
+            this.value = value;
+            N = n;
+        }
+    }
+}
+```
+
 
 
 
