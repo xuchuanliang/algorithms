@@ -37,8 +37,8 @@ public class SparseArray {
         printArr(readSparse);
         System.out.println("=================section3==================");
         //将稀疏数组转成原始数组
-        int[][] newSparseArr = transferFromSparseArr(readSparse);
-        printArr(newSparseArr);
+        int[][] newOriginalArr = transferFromSparseArr(readSparse);
+        printArr(newOriginalArr);
     }
 
     /**
