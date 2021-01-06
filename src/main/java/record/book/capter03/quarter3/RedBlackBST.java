@@ -58,11 +58,27 @@ public class RedBlackBST<K,V> {
      *
      *
      */
-    public Node rotateLeft(Node h){
-        return null;
+    Node rotateLeft(Node h)
+    {
+        Node x = h.right;
+        h.right = x.left;
+        x.left = h;
+        x.color = h.color;
+        h.color = RED;
+        x.N = h.N;
+        return x;
     }
 
-
+    Node rotateRight(Node h)
+    {
+        Node x = h.left;
+        h.left = x.right;
+        x.right = h;
+        x.color = h.color;
+        h.color = RED;
+        x.N = h.N;
+        return x;
+    }
 
     /**
      * 判断当前节点与它父节点之间的链接是不是红色
@@ -72,6 +88,8 @@ public class RedBlackBST<K,V> {
     public boolean isRed(Node node){
         return node!=null && node.color==RED;
     }
+
+
 
     /**
      * 树节点信息
