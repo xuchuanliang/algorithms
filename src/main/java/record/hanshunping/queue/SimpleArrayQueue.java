@@ -75,6 +75,11 @@ public class SimpleArrayQueue implements Queue{
         return arr[++head];
     }
 
+    @Override
+    public void print() {
+
+    }
+
     /**
      * 获取第一个元素
      * @return
