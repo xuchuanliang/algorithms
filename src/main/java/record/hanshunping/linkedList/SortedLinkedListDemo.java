@@ -15,6 +15,7 @@ public class SortedLinkedListDemo {
         simpleLinkedList.addHero(h2);
         simpleLinkedList.addHero(h1);
         simpleLinkedList.addHero(h3);
+        simpleLinkedList.modify(3,"徐传良");
         simpleLinkedList.list();
     }
 
@@ -102,6 +103,11 @@ public class SortedLinkedListDemo {
                 temp = temp.next;
             }
         }
+
+        public void modify(int no,String name){
+            HeroNode hero = findHero(no);
+            hero.setName(name);
+        }
     }
 
     /**
@@ -133,6 +139,10 @@ public class SortedLinkedListDemo {
 
         public void setNext(HeroNode next) {
             this.next = next;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
 
         @Override
