@@ -1,37 +1,29 @@
 package record.hanshunping.queue;
 
-/**
- * 队列接口
- */
-public interface Queue{
-
+public interface Queue {
     /**
      * 队列是否为空
-     * @return
      */
-    boolean isEmpty();
+    void isEmpty();
 
     /**
      * 队列是否已满
-     * @return
      */
-    boolean isFull();
+    void isFull();
 
     /**
-     * 添加向队列中添加元素
-     * @param ele
+     * 添加元素
      */
-    void addEle(int ele);
+    void addEle();
 
     /**
-     * 从队列中获取元素
+     * 获取队列头部元素
      * @return
      */
-    int take();
+    int getEle();
 
     /**
-     * 获取队首的第一个元素
-     * @return
+     * 打印队列中的元素
      */
-    int getFirst();
+    void print();
 }

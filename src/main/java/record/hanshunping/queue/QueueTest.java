@@ -1,25 +1,28 @@
 package record.hanshunping.queue;
 
 /**
- * 队列：使用数组实现队列
- * 队列特点：先进先出
+ * 模拟队列测试
  */
 public class QueueTest {
     public static void main(String[] args) {
-        testSimpleArrayQueue();
+        testCycleArrayQueue();
     }
 
-    public static void testSimpleArrayQueue(){
-        SimpleArrayQueue simpleArrayQueue = new SimpleArrayQueue(3);
-        simpleArrayQueue.addEle(1);
-        simpleArrayQueue.addEle(2);
-        simpleArrayQueue.addEle(3);
-        simpleArrayQueue.take();
-        simpleArrayQueue.take();
-        simpleArrayQueue.take();
-        System.out.println(simpleArrayQueue.isFull());
-        System.out.println(simpleArrayQueue.isEmpty());
-        simpleArrayQueue.addEle(1);
+    /**
+     * 模拟测试环形队列
+     */
+    public static void testCycleArrayQueue(){
+        CycleArrayQueue cycleArrayQueue  = new CycleArrayQueue(3);
+        cycleArrayQueue.print();
+        cycleArrayQueue.addEle(1);
+        cycleArrayQueue.addEle(2);
+        cycleArrayQueue.addEle(3);
+        System.out.print(cycleArrayQueue.getEle());
+        System.out.print(cycleArrayQueue.getEle());
+        System.out.print(cycleArrayQueue.getEle());
+        cycleArrayQueue.addEle(1);
+        cycleArrayQueue.addEle(2);
+        cycleArrayQueue.addEle(3);
+        cycleArrayQueue.print();
     }
 }
-
