@@ -7,6 +7,13 @@ package record.hanshunping.linkedList;
 public class SimpleLinkedListDemo {
 
     public static void main(String[] args) {
+        testSimpleLinkedListAlgorithms();
+    }
+
+    /**
+     * 测试简单链表的普通api
+     */
+    public static void testSimpleLinkedList(){
         HeroNode h1 = new HeroNode(1,"宋义","及时雨");
         HeroNode h2 = new HeroNode(2,"卢俊义","玉麒麟");
         HeroNode h3 = new HeroNode(3,"吴用","智多星");
@@ -23,6 +30,105 @@ public class SimpleLinkedListDemo {
         simpleLinkedList.list();
         System.out.println(simpleLinkedList.findHero(2));
         System.out.println(simpleLinkedList.findHero(6));
+    }
+
+    /**
+     * 测试算法
+     */
+    public static void testSimpleLinkedListAlgorithms(){
+        HeroNode h1 = new HeroNode(1,"宋义","及时雨");
+        HeroNode h2 = new HeroNode(2,"卢俊义","玉麒麟");
+        HeroNode h3 = new HeroNode(3,"吴用","智多星");
+        HeroNode h4 = new HeroNode(4,"林冲","豹子头");
+        SimpleLinkedList simpleLinkedList = new SimpleLinkedList();
+        simpleLinkedList.addHero(h1);
+        simpleLinkedList.addHero(h2);
+        simpleLinkedList.addHero(h3);
+        simpleLinkedList.addHero(h4);
+
+        //获取长度
+        System.out.println(getLength(simpleLinkedList));
+
+        //获取倒数第二个节点信息
+        System.out.println(findLastIndexNode(simpleLinkedList,2));
+
+        //翻转链表
+        simpleLinkedList.list();
+        reverse(simpleLinkedList);
+        System.out.println("");
+        simpleLinkedList.list();
+    }
+
+    /**
+     * 获取单链表的有效节点数量（如果是带头结点的链表，则不需要统计头结点）
+     * @return
+     */
+    public static int getLength(SimpleLinkedList simpleLinkedList){
+        if(null==simpleLinkedList || simpleLinkedList.getHead()==null){
+            //空链表
+            return 0;
+        }
+        HeroNode head = simpleLinkedList.getHead();
+        int length = 0;
+        HeroNode temp = head.next;
+        while (temp!=null){
+            length++;
+            temp = temp.next;
+        }
+        return length;
+    }
+
+    /**
+     * 查找倒数第i个节点
+     * 假设一共有10个节点，倒数第3个节点就是，10-3即第七个的next节点
+     * @return
+     */
+    public static HeroNode findLastIndexNode(SimpleLinkedList simpleLinkedList,int lastIndex){
+        if(lastIndex<=0 || lastIndex>simpleLinkedList.size()){
+            //说明需要查询的节点在范围之外
+            return null;
+        }
+        if(simpleLinkedList==null || simpleLinkedList.getHead()==null){
+            return null;
+        }
+        int totalNode = simpleLinkedList.size();
+        int distance = totalNode-lastIndex;
+        HeroNode temp = simpleLinkedList.head.next;
+        while (temp!=null && distance!=0){
+            distance--;
+            temp = temp.next;
+        }
+        //要么未找到，找到了就是temp.next
+        return null!=temp ? temp : null;
+    }
+
+    /**
+     * 翻转列表，思路如下：
+     * 首先创建一个临时的头结点，用作临时链表的head
+     * 从原有链表的第一个节点开始遍历，每遍历一个节点就将其插入到临时链表的第一的位置，
+     * 这样当原链表遍历完成后，则临时链表的头节点指向了与原链表顺序相反的链表
+     * 最后将head指向临时链表的第一个节点，实现翻转
+     * @param simpleLinkedList
+     */
+    public static void reverse(SimpleLinkedList simpleLinkedList){
+        if(simpleLinkedList==null || simpleLinkedList.size()<=1){
+            //如果链表为空或一个节点都没有或只有一个节点则不需要翻转
+            return;
+        }
+        HeroNode tempHead = new HeroNode(0,null,null);
+        HeroNode temp = simpleLinkedList.getHead().next;
+        while (temp!=null){
+            //只要遍历出来的节点不为空，则将其插入到临时链表的队首
+            //首先将当前节点引用存储起来
+            HeroNode h = temp;
+            //将temp指向下一个节点
+            temp = temp.next;
+            //将h插入到临时节点的队首：即将h.next指向临时链表的第一个节点，并将临时节点的head指向当前节点
+            h.next = tempHead.next;
+            tempHead.next = h;
+        }
+        //执行到此 翻转完毕，需要将原head指向翻转后的第一个节点
+        simpleLinkedList.getHead().next=tempHead.next;
     }
 
     /**
@@ -92,6 +198,24 @@ public class SimpleLinkedListDemo {
                 System.out.print(temp.next);
                 temp = temp.next;
             }
+        }
+
+        public HeroNode getHead() {
+            return head;
+        }
+
+        /**
+         * 获取链表的长度
+         * @return
+         */
+        public int size(){
+            int length = 0;
+            HeroNode temp = head.next;
+            while (temp!=null){
+                length++;
+                temp = temp.next;
+            }
+            return length;
         }
     }
 
