@@ -1,6 +1,9 @@
 package record.hanshunping.linkedList;
 
+import java.util.Stack;
+
 /**
+ * 01.
  * 链表的特点：有序、不连续的线性存储结构
  * 带头结点的单链表：实现对水浒传中的英雄的管理，提供新增、修改、删除、查询功能
  */
@@ -55,8 +58,10 @@ public class SimpleLinkedListDemo {
         //翻转链表
         simpleLinkedList.list();
         reverse(simpleLinkedList);
-        System.out.println("");
         simpleLinkedList.list();
+
+        //逆序打印队列
+        reversePrint(simpleLinkedList);
     }
 
     /**
@@ -132,6 +137,25 @@ public class SimpleLinkedListDemo {
     }
 
     /**
+     * 逆序打印队列，思路：利用一个栈的结构，将队列的元素从头到尾压入栈，然后在从栈顶逐步弹出打印即可
+     * @param simpleLinkedList
+     */
+    public static void reversePrint(SimpleLinkedList simpleLinkedList){
+        if(null==simpleLinkedList || null==simpleLinkedList.getHead()){
+            return;
+        }
+        Stack<HeroNode> stack = new Stack<>();
+        HeroNode temp = simpleLinkedList.getHead().next;
+        while (temp!=null){
+            stack.push(temp);
+            temp = temp.next;
+        }
+        while (!stack.empty()){
+            System.out.println(stack.pop());
+        }
+    }
+
+    /**
      * 单链表
      */
     private static class SimpleLinkedList {
@@ -193,11 +217,13 @@ public class SimpleLinkedListDemo {
         }
 
         public void list(){
+            System.out.println();
             HeroNode temp = head;
             while (temp.next!=null){
                 System.out.print(temp.next);
                 temp = temp.next;
             }
+            System.out.println();
         }
 
         public HeroNode getHead() {

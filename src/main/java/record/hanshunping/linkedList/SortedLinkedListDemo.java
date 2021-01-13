@@ -1,6 +1,7 @@
 package record.hanshunping.linkedList;
 
 /**
+ * 02.
  * 带有顺序的链表：根据英雄的no按照顺序将英雄插入到指定的位置，如果有这个排名，则添加失败并给出提示
  */
 public class SortedLinkedListDemo {
