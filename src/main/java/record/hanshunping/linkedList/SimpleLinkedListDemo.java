@@ -85,7 +85,7 @@ public class SimpleLinkedListDemo {
 
     /**
      * 查找倒数第i个节点
-     * 假设一共有10个节点，倒数第3个节点就是，10-3即第七个的next节点
+     * 假设一共有10个节点，倒数第3个节点就是，10-3即第七个 的next节点
      * @return
      */
     public static HeroNode findLastIndexNode(SimpleLinkedList simpleLinkedList,int lastIndex){
