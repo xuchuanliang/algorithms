@@ -1,4 +1,4 @@
-package record.hanshunping.queue;
+package record.hanshunping.queue02;
 
 public interface Queue {
     /**

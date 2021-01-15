@@ -1,4 +1,4 @@
-package record.hanshunping.queue;
+package record.hanshunping.queue02;
 
 /**
  * 模拟队列测试

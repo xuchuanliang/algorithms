@@ -1,4 +1,4 @@
-package record.hanshunping.queue;
+package record.hanshunping.queue02;
 
 /**
  * 使用数组模拟队列：先进先出

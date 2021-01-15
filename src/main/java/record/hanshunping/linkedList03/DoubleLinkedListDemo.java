@@ -1,4 +1,4 @@
-package record.hanshunping.linkedList;
+package record.hanshunping.linkedList03;
 
 /**
  * 03.

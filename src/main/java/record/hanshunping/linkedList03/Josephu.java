@@ -1,4 +1,4 @@
-package record.hanshunping.linkedList;
+package record.hanshunping.linkedList03;
 
 /**
  * 约瑟夫问题：设编号为 1， 2， … n 的 n 个人围坐一圈， 约定编号为 k（1<=k<=n） 的人从 1 开始报数， 数到

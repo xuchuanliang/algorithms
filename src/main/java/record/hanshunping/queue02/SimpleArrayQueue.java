@@ -1,4 +1,4 @@
-package record.hanshunping.queue;
+package record.hanshunping.queue02;
 
 /**
  * 使用数组实现的简单队列，无循环功能
