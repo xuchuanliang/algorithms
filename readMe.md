@@ -1013,3 +1013,4 @@ public class BinarySearchTreeBook<K extends Comparable<K>, V> {
 8. 依次弹出 s2 中的元素并输出， 结果的逆序即为中缀表达式对应的后缀表达式
 9. 注意：括号不算运算符
 ## 递归
+## 八皇后问题
