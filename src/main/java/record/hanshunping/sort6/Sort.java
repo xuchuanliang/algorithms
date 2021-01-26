@@ -1,4 +1,4 @@
-package record.hanshunping.sort;
+package record.hanshunping.sort6;
 
 import com.ant.StopWatch;
 
@@ -16,6 +16,10 @@ public abstract class Sort {
         //选择排序主要思想是选择，每次都选出最小的放在最左边，最后就有序了；相对于冒泡，交换的次数比较少，每次选出来最小的索引然后再进行交换
         //10W时间：4863
         sort = new SelectSort();
+        sort.test(100000);
+
+        //插入排序：从左到右，假设第一个元素是有序的，那么从第二个元素开始，选择合适的位置插入到前面有序的数组中，最终到最后一个元素插入完成后，则整个数组有序
+        sort = new InsertSort();
         sort.test(100000);
 
 

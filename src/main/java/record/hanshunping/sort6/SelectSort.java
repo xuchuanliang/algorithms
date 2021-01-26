@@ -1,4 +1,4 @@
-package record.hanshunping.sort;
+package record.hanshunping.sort6;
 
 /**
  * 选择排序：从数组中找出最小的放在第一个位置，然后逐步找出剩余元素最小的放在后面的位置
