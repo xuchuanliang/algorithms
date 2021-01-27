@@ -47,7 +47,8 @@ public class ShellSort extends Sort {
                 }
             }
             //当前步长的各个间隔数组有序后，则整个数组距离有序近了一步
-            gap--;
+            //重点：一定要步长成倍的缩减，否则会导致效率比较差
+            gap = gap/2;
         }
     }
 }

@@ -24,7 +24,7 @@ public abstract class Sort {
         sort.test(100000);
 
         //希尔排序：针对插入排序的优化，插入排序存在大量移动数据的情况，希尔排序通过引入步长，将数组从大致有序到最终有序，提升速度
-        //10W时间：13411
+        //10W时间：15
         sort = new ShellSort();
         sort.test(100000);
     }
