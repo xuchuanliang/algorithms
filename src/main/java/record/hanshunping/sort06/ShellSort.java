@@ -1,4 +1,4 @@
-package record.hanshunping.sort6;
+package record.hanshunping.sort06;
 
 /**
  * 希尔排序：主要是为了解决插入排序的缺点，示例如下：

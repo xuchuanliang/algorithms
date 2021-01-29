@@ -1,4 +1,4 @@
-package record.hanshunping.sort6;
+package record.hanshunping.sort06;
 
 /**
  * 插入排序：

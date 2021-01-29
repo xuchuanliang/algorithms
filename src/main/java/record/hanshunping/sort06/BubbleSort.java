@@ -1,4 +1,4 @@
-package record.hanshunping.sort6;
+package record.hanshunping.sort06;
 
 /**
  * 冒泡排序（Bubble Sorting） 的基本思想是： 通过对待排序序列从前向后（从下标较小的元素开始） ,依次比较
